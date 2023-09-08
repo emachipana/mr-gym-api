@@ -1,7 +1,7 @@
-import { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 // schema
-const planSchema = new Schema(
+const planSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -12,7 +12,7 @@ const planSchema = new Schema(
       required: true
     },
     price: {
-      type: Schema.Types.Decimal128,
+      type: mongoose.Schema.Types.Decimal128,
       required: true
     },
     benefits: {
