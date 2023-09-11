@@ -20,7 +20,7 @@ export const getPlan = async (req, res) => {
 
     if(plan) return res.status(200).json(plan);
 
-    res.status(404).json({ message: "Plan not found" });
+    res.status(404).json({ message: "El Plan no se encontró" });
   }catch(e) {
     console.error(e);
 
@@ -78,7 +78,7 @@ export const deletePlan = async (req, res) => {
 
     if(deletedPlan) return res.status(204).json();
 
-    res.status(404).json({ message: "Plan not found" });
+    res.status(404).json({ message: "El Plan no se encontró" });
   }catch(e) {
     res.status(500).json(e);
   }
