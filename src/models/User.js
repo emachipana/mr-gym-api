@@ -66,15 +66,13 @@ userSchema.statics.comparePassword = async (password, receivedPassword) => {
   return await bcrypt.compare(password, receivedPassword);
 }
 
-// function to encrypt password when user is updated
-userSchema.pre("save", async (next) => {
+userSchema.pre("save", async function (next) {
   const user = this;
-  // stop function if password has not been modified
+
   if(!user.isModified("password")) {
     return next();
   }
 
-  // encrypt password and update this
   const hash = await bcrypt.hash(user.password, 10);
   user.password = hash;
   next();
