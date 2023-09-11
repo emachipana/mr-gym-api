@@ -5,12 +5,20 @@ import registersRoutes from "./routes/registers.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import morgan from "morgan";
+import helmet from "helmet";
+import { PORT } from "../config.js";
 
 const app = express();
+
+// settings
+app.set("port", PORT);
+app.set("json spaces", 4);
 
 // middlewares
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(helmet());
+app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use("/", indexRoute);
