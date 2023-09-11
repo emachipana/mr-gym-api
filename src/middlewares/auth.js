@@ -10,10 +10,10 @@ export const verifyToken = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, SECRET);
     const { id } = decoded.id;
-    req.userId = id;
 
     const user = await User.findById(id);
     if(!user) return res.status(404).json({ message: "El usuario no existe" });
+    req.user = user;
 
     next();
   }catch(e){
@@ -24,11 +24,9 @@ export const verifyToken = async (req, res, next) => {
 }
 
 export const isAdmin = async (req, res, next) => {
-  const { id } = req.userId || "";
+  const { user } = req;
 
   try {
-    const user = await User.findById(id);
-
     if(user.user_type === "admin") return next();
 
     res.status(401).json({ message: "Necesitas ser administrador para realizar esta acción" });
