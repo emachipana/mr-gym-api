@@ -5,7 +5,7 @@ import User from "../models/User.js";
 export const verifyToken = async (req, res, next) => {
   let token = req.headers["x-access-token"];
 
-  if(!token) return res.status(401).json({ message: "Token no encontrado" });
+  if(!token) return res.status(401).json({ message: "Inicia sesión primero" });
 
   try {
     const decoded = jwt.verify(token, SECRET);
@@ -24,7 +24,7 @@ export const verifyToken = async (req, res, next) => {
 }
 
 export const isAdmin = async (req, res, next) => {
-  const { id } = req.userIdid;
+  const { id } = req.userId || "";
 
   try {
     const user = await User.findById(id);
