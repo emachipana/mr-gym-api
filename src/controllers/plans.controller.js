@@ -80,6 +80,8 @@ export const deletePlan = async (req, res) => {
 
     res.status(404).json({ message: "El Plan no se encontró" });
   }catch(e) {
+    console.error(e);
+
     res.status(500).json(e);
   }
 }
