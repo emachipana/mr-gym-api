@@ -55,11 +55,12 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// function to encrypt password
-userSchema.statics.encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10)
-  await bcrypt.hash(password, salt);
-};
+// hide password
+userSchema.methods.toJSON = function() {
+  const { _id, password, ...user } = this.toObject();
+
+  return { id: _id, ...user };
+}
 
 // function to compare passwords
 userSchema.statics.comparePassword = async (password, receivedPassword) => {
