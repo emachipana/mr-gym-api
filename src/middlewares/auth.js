@@ -9,8 +9,8 @@ export const verifyToken = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, SECRET);
-    const { id } = decoded.id;
-
+    const { id } = decoded;
+    
     const user = await User.findById(id);
     if(!user) return res.status(404).json({ message: "El usuario no existe" });
     req.user = user;
