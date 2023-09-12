@@ -31,6 +31,13 @@ const planSchema = new mongoose.Schema(
   }
 );
 
+// change id name
+planSchema.methods.toJSON = function() {
+  const { _id, ...user } = this.toObject();
+
+  return { id: _id, ...user };
+}
+
 // model
 const Plan = mongoose.model("Plan", planSchema);
 
