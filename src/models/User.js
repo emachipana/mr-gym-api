@@ -70,7 +70,7 @@ userSchema.statics.comparePassword = async (password, receivedPassword) => {
 // function to validate if user is owner or admin
 userSchema.statics.isOwnerOrAdmin = async (userId, userType, idToAction) => {
   return {
-    validation: userId !== idToAction || userType !== "admin",
+    validation: userType !== "admin" && userId !== idToAction,
     message: "Tienes que ser el propietario o administrador para realizar esta acción"
   }
 }
