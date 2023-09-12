@@ -57,9 +57,7 @@ export const updatePlan = async (req, res) => {
     const updatedPlan = await Plan.findByIdAndUpdate(
       id,
       req.body,
-      {
-        new: true
-      }
+      { new: true }
     );
 
     res.status(200).json(updatedPlan);
