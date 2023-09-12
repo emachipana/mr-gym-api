@@ -19,14 +19,18 @@ export const getUsers = async (_req, res) => {
 }
 
 export const getUser = async (req, res) => {
+  const { user } = req;
   const { id } = req.params;
 
   try {
-    const user = await User.findById(id);
+    const validate = await User.isOwnerOrAdmin(user.id, user.user_type, id);
+    if(validate.validation) return res.status(401).json({ message: validate.message });
 
-    if(!user) return res.status(404).json({ message: "El usuario no existe" });
+    const userFound = await User.findById(id);
 
-    res.status(200).json(user);
+    if(!userFound) return res.status(404).json({ message: "El usuario no existe" });
+
+    res.status(200).json(userFound);
   }catch(e) {
     console.error(e);
 
