@@ -6,6 +6,7 @@ import {
   getUsers,
   updateUser } from "../controllers/users.controller.js";
 import { isAdmin, verifyToken } from "../middlewares/auth.js";
+import { checkingExistingUser } from "../middlewares/verifySignUp.js";
 
 const router = Router();
 
@@ -16,7 +17,7 @@ router.get("/", [ verifyToken, isAdmin ], getUsers);
 router.get("/:id", [ verifyToken ], getUser);
 
 // POST - create user
-router.post("/", createUser);
+router.post("/", [ checkingExistingUser ,verifyToken, isAdmin ], createUser);
 
 // PATCH - update user
 router.patch("/:id", [ verifyToken ], updateUser);
