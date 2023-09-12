@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { signInHandler, signUpHandler } from "../controllers/auth.controller.js";
+import { checkingExistingUser } from "../middlewares/verifySignUp.js";
 
 const router = Router();
 
@@ -12,9 +14,9 @@ router.use((_req, res, next) => {
 });
 
 // POST - sig nup
-router.post("/signup");
+router.post("/signup", [ checkingExistingUser ], signUpHandler);
 
 // POST - sign in
-router.post("/signin");
+router.post("/signin", signInHandler);
 
 export default router;
