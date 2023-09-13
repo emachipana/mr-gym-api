@@ -13,7 +13,7 @@ const planSchema = new mongoose.Schema(
       required: true
     },
     price: {
-      type: mongoose.Schema.Types.Decimal128,
+      type: Number,
       required: true
     },
     benefits: {
@@ -30,6 +30,13 @@ const planSchema = new mongoose.Schema(
     versionKey: false
   }
 );
+
+// change id name
+planSchema.methods.toJSON = function() {
+  const { _id, ...user } = this.toObject();
+
+  return { id: _id, ...user };
+}
 
 // model
 const Plan = mongoose.model("Plan", planSchema);

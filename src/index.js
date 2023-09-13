@@ -1,6 +1,10 @@
 import { PORT } from "../config.js";
 import app from "./app.js";
 import "./database/db.js";
+import { createAdmin } from "./libs/setup.js";
+
+// create admin
+createAdmin();
 
 // server listen port 3001
 app.listen(PORT);

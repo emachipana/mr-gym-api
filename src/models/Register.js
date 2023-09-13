@@ -13,13 +13,14 @@ const registerSchema = new mongoose.Schema(
       type: Date,
       default: Date.now
     },
-    exit: {
-      type: Date,
-      required: true
-    },
+    exit: Date,
     takes: {
       type: [],
       default: []
+    },
+    isGetBack: {
+      type: Boolean,
+      default: false
     }
   },
   {
@@ -27,6 +28,12 @@ const registerSchema = new mongoose.Schema(
     versionKey: false
   }
 );
+
+registerSchema.methods.toJSON = function() {
+  const { _id, ...user } = this.toObject();
+
+  return { id: _id, ...user };
+}
 
 // model
 const Register = mongoose.model("Register", registerSchema);
