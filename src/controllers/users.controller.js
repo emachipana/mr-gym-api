@@ -1,3 +1,4 @@
+import Plan from "../models/Plan.js";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 
@@ -19,13 +20,9 @@ export const getUsers = async (_req, res) => {
 }
 
 export const getUser = async (req, res) => {
-  const { user } = req;
   const { id } = req.params;
 
   try {
-    const validate = await User.isOwnerOrAdmin(user.id, user.user_type, id);
-    if(validate.validation) return res.status(401).json({ message: validate.message });
-
     const userFound = await User.findById(id);
 
     if(!userFound) return res.status(404).json({ message: "El usuario no existe" });
@@ -83,21 +80,33 @@ export const createUser = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
-  const { user } = req;
   const { id } = req.params;
-  let { password } = req.body;
+  let { password, planId } = req.body;
+  let days_remaining;
+  let plan = {};
 
   try {
-    const validate = await User.isOwnerOrAdmin(user.id, user.user_type, id);
-    if(validate.validation) return res.status(401).json({ message: validate.message });
-
     if(password) password = await bcrypt.hash(password, 10);
+
+    if(planId) {
+      plan = await Plan.findById(planId);
+      if(!plan) return res.status(404).json({ message: "El plan no existe" });
+
+      days_remaining = plan.remaining;
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { ...req.body, password },
+      { 
+        ...req.body,
+        password,
+        days_remaining,
+        plan: plan.id
+      },
       { new: true }
     );
+
+    if(!updatedUser) return res.status(404).json({ message: "El usuario no existe" });
 
     res.status(200).json(updatedUser);
   }catch(e) {
@@ -108,13 +117,9 @@ export const updateUser = async (req, res) => {
 }
 
 export const deleteUser = async (req, res) => {
-  const { user } = req;
   const { id } = req.params;
 
   try {
-    const validate = await User.isOwnerOrAdmin(user.id, user.user_type, id);
-    if(validate.validation) return res.status(401).json({ message: validate.message });
-    
     const deletedUser = await User.findByIdAndDelete(id);
 
     if(!deletedUser) return res.status(404).json({ message: "El usuario no existe" });
