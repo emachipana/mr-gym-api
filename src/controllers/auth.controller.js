@@ -8,7 +8,7 @@ export const signInHandler = async (req, res) => {
 
   try {
     let user = await User.findOne({ email: email });
-    if(!user) return res.status(401).json({ message: "Usuario o contraseña inválidos, f" });
+    if(!user) return res.status(401).json({ message: "Usuario o contraseña inválidos" });
 
     const matchPassword = await User.comparePassword(password, user.password);
     if(!matchPassword)

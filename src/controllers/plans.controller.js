@@ -60,6 +60,8 @@ export const updatePlan = async (req, res) => {
       { new: true }
     );
 
+    if(!updatedPlan) return res.status(404).json({ message: "El plan no existe" });
+
     res.status(200).json(updatedPlan);
   }catch(e) {
     console.error(e);
