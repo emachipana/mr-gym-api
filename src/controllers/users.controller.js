@@ -35,6 +35,12 @@ export const getUser = async (req, res) => {
   }
 }
 
+export const getProfile = async (req, res) => {
+  const { user } = req;
+
+  res.status(200).json(user);
+}
+
 export const createUser = async (req, res) => {
   const { user = {}, isToSignUp = false } = req;
   const { 
