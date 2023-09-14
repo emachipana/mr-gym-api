@@ -6,6 +6,7 @@ import usersRoutes from "./routes/users.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import morgan from "morgan";
 import helmet from "helmet";
+import cors from "cors";
 import { PORT } from "../config.js";
 
 const app = express();
@@ -15,6 +16,11 @@ app.set("port", PORT);
 app.set("json spaces", 4);
 
 // middlewares
+app.use(
+  cors({
+    origin: "http://localhost:3000" // until deploy
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(helmet());

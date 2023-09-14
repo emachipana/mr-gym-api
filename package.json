@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "babel src --out-dir build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js --exec babel-node",
-    "start": "node build/index.js" 
+    "start": "node src/index.js" 
   },
   "keywords": [],
   "author": "Enmanuel",
