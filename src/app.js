@@ -4,6 +4,7 @@ import plansRoutes from "./routes/plans.routes.js";
 import registersRoutes from "./routes/registers.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import payRoute from "./routes/pay.routes.js";
 import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
@@ -16,11 +17,7 @@ app.set("port", PORT);
 app.set("json spaces", 4);
 
 // middlewares
-app.use(
-  cors({
-    origin: "http://localhost:3000" // until deploy
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(helmet());
@@ -32,5 +29,6 @@ app.use("/plans", plansRoutes);
 app.use("/registers", registersRoutes);
 app.use("/users", usersRoutes);
 app.use("/auth", authRoutes);
+app.use("/pay", payRoute);
 
 export default app;
