@@ -2,6 +2,7 @@ import { PORT } from "../config.js";
 import app from "./app.js";
 import "./database/db.js";
 import { createAdmin } from "./libs/setup.js";
+import "./libs/mercadoPago.js";
 
 // create admin
 createAdmin();
