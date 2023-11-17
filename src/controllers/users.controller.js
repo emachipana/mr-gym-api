@@ -87,7 +87,7 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  let { password, planId } = req.body;
+  let { password, planId, months } = req.body;
   let days_remaining;
   let plan = {};
 
@@ -98,7 +98,7 @@ export const updateUser = async (req, res) => {
       plan = await Plan.findById(planId);
       if(!plan) return res.status(404).json({ message: "El plan no existe" });
 
-      days_remaining = plan.remaining;
+      days_remaining = plan.remaining * months;
     }
 
     const updatedUser = await User.findByIdAndUpdate(
