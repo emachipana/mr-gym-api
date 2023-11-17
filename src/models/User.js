@@ -35,10 +35,6 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
-    step: {
-      type: Number,
-      default: 0
-    },
     user_type: {
       type: String,
       default: "client"
