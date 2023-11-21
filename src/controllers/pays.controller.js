@@ -2,7 +2,7 @@ import { Preference } from "mercadopago";
 import { client } from "../libs/mercadoPago.js";
 
 export const preference = async (req, res) => {
-  const { id, title, unit_price, quantity } = req.body;
+  const { id, userId, title, unit_price, quantity } = req.body;
   const newPreferences = new Preference(client);
   
   let preferences = {
@@ -10,6 +10,7 @@ export const preference = async (req, res) => {
       items: [
         {
           id,
+          category_id: userId,
           title,
           unit_price,
           quantity
