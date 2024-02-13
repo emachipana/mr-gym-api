@@ -17,8 +17,8 @@ export const preference = async (req, res) => {
         }
       ],
       back_urls: {
-        success: "http://localhost:3000/choose-plan/success",
-        failure: "http://localhost:3000/choose-plan/failure",
+        success: "https://mr-gym.vercel.app/choose-plan/success",
+        failure: "https://mr-gym.vercel.app/choose-plan/failure",
         pending: "",
       },
       auto_return: "approved",
